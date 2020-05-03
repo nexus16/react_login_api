@@ -2,7 +2,7 @@ const express = require("express")
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
-// const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const { check, validationResult } = require('express-validator');
 const cors = require('cors');
 const passport = require("passport");
@@ -23,7 +23,8 @@ db.on('error', (err) => {
     console.log('DB connection error:', err.message);
 })
 app.use(morgan("dev"))
-// app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 app.use(passport.initialize());
 require("./src/middlewares/jwt")(passport);
 
